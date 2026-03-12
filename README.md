@@ -52,22 +52,13 @@ The app guides users through a structured walk-jog interval program, automatical
 npm install
 ```
 
-**2. Add sound assets**
-
-Replace the placeholder files with real audio before building:
-
-- `assets/sounds/transition.mp3` — played at each walk/jog transition
-- `assets/sounds/complete.mp3` — played when the workout finishes
-
-(The placeholders are silent audio files so the build won't fail without them.)
-
-**3. Start the development server**
+**2. Start the development server**
 
 ```bash
 npx expo start
 ```
 
-**4. Run on a device (requires custom dev build)**
+**3. Run on a device (requires custom dev build)**
 
 ```bash
 # Android
