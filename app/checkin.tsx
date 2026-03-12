@@ -58,7 +58,7 @@ export default function CheckInScreen() {
   const [painDuring, setPainDuring] = useState<string>('');
   const [feelNow, setFeelNow] = useState<string>('');
   const [nightPain, setNightPain] = useState<string>('');
-  const [morningStiffness, setMorningSitffness] = useState<string>('');
+  const [morningStiffness, setMorningStiffness] = useState<string>('');
   const [recommendation, setRecommendation] = useState<string>('');
   const [isSaving, setIsSaving] = useState(false);
 
@@ -78,7 +78,7 @@ export default function CheckInScreen() {
   };
 
   const handleQ4 = async (value: string) => {
-    setMorningSitffness(value);
+    setMorningStiffness(value);
     setIsSaving(true);
 
     const input = {

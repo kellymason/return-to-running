@@ -196,8 +196,57 @@ export async function getWorkouts(): Promise<WorkoutWithCheckin[]> {
 }
 
 export async function getWorkoutWithCheckin(id: number): Promise<WorkoutWithCheckin | null> {
-  const all = await getWorkouts();
-  return all.find((w) => w.id === id) ?? null;
+  const row = await getDb().getFirstAsync<
+    Workout & {
+      checkin_id: number | null;
+      pain_during: PainDuring | null;
+      feel_now: number | null;
+      night_pain: number | null;
+      morning_stiffness: number | null;
+      recommendation: Recommendation | null;
+      checkin_created_at: string | null;
+    }
+  >(
+    `SELECT
+       w.*,
+       c.id AS checkin_id,
+       c.pain_during,
+       c.feel_now,
+       c.night_pain,
+       c.morning_stiffness,
+       c.recommendation,
+       c.created_at AS checkin_created_at
+     FROM workouts w
+     LEFT JOIN checkins c ON c.workout_id = w.id
+     WHERE w.id = ?`,
+    [id]
+  );
+
+  if (!row) return null;
+
+  return {
+    id: row.id,
+    date: row.date,
+    walk_interval_seconds: row.walk_interval_seconds,
+    jog_interval_seconds: row.jog_interval_seconds,
+    planned_duration_seconds: row.planned_duration_seconds,
+    actual_duration_seconds: row.actual_duration_seconds,
+    completed: Boolean(row.completed),
+    created_at: row.created_at,
+    checkin:
+      row.checkin_id != null
+        ? {
+            id: row.checkin_id,
+            workout_id: row.id,
+            pain_during: row.pain_during!,
+            feel_now: row.feel_now!,
+            night_pain: Boolean(row.night_pain),
+            morning_stiffness: Boolean(row.morning_stiffness),
+            recommendation: row.recommendation!,
+            created_at: row.checkin_created_at!,
+          }
+        : null,
+  };
 }
 
 export async function getLastCheckin(): Promise<Checkin | null> {
@@ -242,7 +291,9 @@ export async function getTotalWorkouts(): Promise<number> {
 }
 
 export async function getCurrentStreak(): Promise<number> {
-  // Count consecutive days with at least one completed workout, going back from today
+  // Count consecutive days with at least one completed workout, going back from today.
+  // Relies on dates being stored in ISO 8601 format (YYYY-MM-DD) so lexicographic ORDER BY
+  // produces correct chronological order.
   const rows = await getDb().getAllAsync<{ date: string }>(
     `SELECT DISTINCT date(date) as date
      FROM workouts

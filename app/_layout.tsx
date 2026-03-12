@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { AppState, AppStateStatus } from 'react-native';
+import { Alert, AppState, AppStateStatus } from 'react-native';
 import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -17,7 +17,14 @@ export default function RootLayout() {
       await configureAudioSession();
       configureNotificationHandler();
       await setupNotificationChannel();
-      await requestNotificationPermissions();
+      const granted = await requestNotificationPermissions();
+      if (!granted) {
+        Alert.alert(
+          'Notifications Disabled',
+          'Background audio cues won\'t play without notification permissions. Foreground audio will still work while the app is open.',
+          [{ text: 'OK' }]
+        );
+      }
     }
 
     init().catch((err) => console.error('Init error:', err));

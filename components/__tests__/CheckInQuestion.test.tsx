@@ -111,10 +111,6 @@ describe('CheckInQuestion', () => {
         selectedValue="none"
       />
     );
-    // The selected option is accessible — check it's rendered
-    const noPainOption = screen.getByAccessibilityValue
-      ? screen.getByText('No pain')
-      : screen.getByText('No pain');
-    expect(noPainOption).toBeTruthy();
+    expect(screen.getByText('No pain')).toBeTruthy();
   });
 });

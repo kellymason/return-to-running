@@ -396,6 +396,14 @@ function SetupScreen({
         </View>
       )}
 
+      {walkMinutes === 1 && (
+        <View style={styles.phaseVHintBox}>
+          <Text style={styles.phaseVHintText}>
+            🎉 You're at 1-minute walk intervals — one more progression and you'll move to continuous jogging (Phase V)!
+          </Text>
+        </View>
+      )}
+
       <Text style={styles.previewHeading}>Your 30-minute plan:</Text>
       <View style={styles.preview}>
         {intervals.map((interval, i) => (
@@ -581,6 +589,18 @@ const styles = StyleSheet.create({
   warningText: {
     fontSize: Typography.bodySmall,
     color: '#856404',
+    lineHeight: 20,
+  },
+  phaseVHintBox: {
+    backgroundColor: '#E8F5E9',
+    borderRadius: BorderRadius.md,
+    padding: Spacing.md,
+    borderLeftWidth: 4,
+    borderLeftColor: Colors.walk,
+  },
+  phaseVHintText: {
+    fontSize: Typography.bodySmall,
+    color: '#2E7D32',
     lineHeight: 20,
   },
   previewHeading: {
