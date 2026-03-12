@@ -109,4 +109,4 @@ Key files:
 
 ## License
 
-MIT
+No license file has been provided yet. Until an explicit license is added to this repository, all rights are reserved and you may not use, copy, modify, or distribute this code without permission.
