@@ -91,7 +91,7 @@ npm run test:ci   # CI mode with coverage
 ## Project Structure
 
 ```
-app/          # Expo Router screens (tabs: home, timer, check-in, history)
+app/          # Expo Router screens (tabs: home, run, history; plus check-in flow)
 lib/          # Business logic: intervals, recommendations, db, audio, notifications
 components/   # Reusable UI components
 constants/    # Design tokens (colors, typography, spacing)
@@ -109,4 +109,4 @@ Key files:
 
 ## License
 
-No license file has been provided yet. Until an explicit license is added to this repository, all rights are reserved and you may not use, copy, modify, or distribute this code without permission.
+MIT — see [LICENSE](LICENSE) for details.
