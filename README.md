@@ -59,7 +59,7 @@ Replace the placeholder files with real audio before building:
 - `assets/sounds/transition.mp3` — played at each walk/jog transition
 - `assets/sounds/complete.mp3` — played when the workout finishes
 
-(The placeholders are silent WAV files so the build won't fail without them.)
+(The placeholders are silent audio files so the build won't fail without them.)
 
 **3. Start the development server**
 
